@@ -1,4 +1,4 @@
---// RAG ARSENAL CHEAT
+--// floz arsenal script 
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -32,25 +32,31 @@ stroke.Color = Color3.fromRGB(255,255,255)
 local corner = Instance.new("UICorner", frame)
 corner.CornerRadius = UDim.new(1,0)
 
--- CRÉDITO RGB PARA MOBILE
+-- CRÉDITO: "made by" na cor #FFFFFF (branco), "floz" RGB
 local credit = Instance.new("TextLabel")
 credit.Parent = gui
 credit.BackgroundTransparency = 1
-credit.Position = UDim2.new(1, -10, 0, 10)   -- canto superior direito com pequeno offset
-credit.AnchorPoint = Vector2.new(1, 0)       -- ancora no canto direito
+credit.Position = UDim2.new(1, -10, 0, 10)
+credit.AnchorPoint = Vector2.new(1, 0)
 credit.Size = UDim2.new(0, 180, 0, 20)
-credit.Text = "made by ragkk01rgb"
 credit.TextXAlignment = Enum.TextXAlignment.Right
-credit.Font = Enum.Font.SourceSansBold   -- mais legível no mobile
+credit.Font = Enum.Font.SourceSansBold
 credit.TextSize = 14
-credit.TextTransparency = 0   -- sem transparência para garantir visibilidade
-credit.TextColor3 = Color3.fromRGB(255,255,255)
+credit.TextTransparency = 0
+credit.RichText = true
 
--- Anima RGB
+-- Anima apenas o "floz" com RGB
 local hue = 0
 RunService.RenderStepped:Connect(function()
     hue = (hue + 0.01) % 1
-    credit.TextColor3 = Color3.fromHSV(hue, 1, 1)
+    local rgbColor = Color3.fromHSV(hue, 1, 1)
+    -- Converte Color3 para formato hex #RRGGBB
+    local hex = string.format("#%02x%02x%02x",
+        math.floor(rgbColor.R * 255),
+        math.floor(rgbColor.G * 255),
+        math.floor(rgbColor.B * 255)
+    )
+    credit.Text = '<font color="#FFFFFF">made by</font> <font color="' .. hex .. '">Floz V1.5</font>'
 end)
 
 -- IMPORTANTE: fazer o gui ignorar os insets da tela (mobile)
